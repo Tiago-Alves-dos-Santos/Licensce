@@ -13,18 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('empresa_sistemas', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('login')->unique();
-            $table->enum('tipo', ['dev_admin', 'dev_empregado','user_admin','user_empregado']);
-            $table->enum('ativo', ['Y', 'N']);
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->bigInteger('empresa_id')->unsigned();
+            $table->bigInteger('sistema_id')->unsigned();
+            $table->enum('tipo_licenca', ['usuario', 'pc']);
             $table->timestamps();
             $table->softDeletes($column = 'deleted_at', $precision = 0);
+            //foreng keys
+            $table->foreign('empresa_id')->references('id')->on('empresas');
+            $table->foreign('sistema_id')->references('id')->on('sistemas');
         });
     }
 
@@ -35,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('empresa_sistemas');
     }
 };

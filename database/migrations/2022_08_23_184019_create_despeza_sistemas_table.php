@@ -13,18 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('despeza_sistemas', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('login')->unique();
-            $table->enum('tipo', ['dev_admin', 'dev_empregado','user_admin','user_empregado']);
-            $table->enum('ativo', ['Y', 'N']);
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->bigInteger('sistema_id')->unsigned();
+            $table->string('nome', 255)->nullable();
+            $table->double('valor',11,2)->nullable();
             $table->timestamps();
             $table->softDeletes($column = 'deleted_at', $precision = 0);
+            //foreng keys
+            $table->foreign('sistema_id')->references('id')->on('sistemas');
         });
     }
 
@@ -35,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('despeza_sistemas');
     }
 };
