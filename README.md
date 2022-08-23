@@ -1,0 +1,2 @@
+# Licensce
+Gerenciador de licenças
