@@ -5,6 +5,7 @@ namespace App\Models;
 use Exception;
 use App\Classes\Configuracao;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Notifications\Notifiable;
@@ -72,6 +73,8 @@ class User extends Authenticatable
                     Cookie::queue(Cookie::forget('senha'));
                     Cookie::queue(Cookie::forget('lembrar_me'));
                 }
+                //seta user na classe auth
+                Auth::login($user);
                 $retorno = [
                     'user' => $user,
                     'sucesso' => true
