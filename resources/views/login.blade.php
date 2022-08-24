@@ -99,8 +99,11 @@
     <!-- endinject -->
 
     @if (session()->has('alert'))
+      @php
+        $data = htmlspecialchars_decode(session('alert.data'));
+      @endphp
       <script>
-        showAlert("{{session('alert.titulo')}}", "{{session('alert.data')}}", "{{session('alert.tipo')}}")
+        showAlert("{{session('alert.titulo')}}", "<?= $data ?>", "{{session('alert.tipo')}}")
       </script>
       @php
         session()->forget('alert');
