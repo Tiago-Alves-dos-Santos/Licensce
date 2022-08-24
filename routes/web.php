@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Login;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('login');
 });
+
+Route::get('/home-devAdmin', function () {
+    return view('index');
+})->name('view.devAdmin.home');
+Route::post('/home-devAdmin', [Login::class, 'login'])->name('control.login.login');

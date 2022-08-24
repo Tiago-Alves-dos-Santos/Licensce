@@ -1,11 +1,18 @@
 /*!
- * Bootstrap v4.5.3 (https://getbootstrap.com/) arquivo style.css
+ * Bootstrap v4.5.3 (https://getbootstrap.com/)
  * Copyright 2011-2020 The Bootstrap Authors
  * Copyright 2011-2020 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
-
 * {
   margin: 0;
   padding: 0;
+}
+
+.jconfirm .jconfirm-box div.jconfirm-content-pane .jconfirm-content {
+  color: black;
+}
+
+.jconfirm .jconfirm-box div.jconfirm-title-c .jconfirm-title {
+  color: black;
 }
