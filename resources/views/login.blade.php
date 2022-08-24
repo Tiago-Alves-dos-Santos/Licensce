@@ -19,7 +19,7 @@
                     <input type="text" class="form-control p_input">
                   </div>
                   <div class="form-group d-flex align-items-center justify-content-between">
-                    <div class="form-check">
+                    <div class="form-check form-check-flat form-check-primary">
                       <label class="form-check-label">
                         <input type="checkbox" class="form-check-input"> Remember me </label>
                     </div>
@@ -47,7 +47,7 @@
     </div>
     <!-- container-scroller -->
     <!-- plugins:js -->
-    <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
+    <script src="{{asset('vendors/js/vendor.bundle.base.js"')}}"></script>
     <!-- endinject -->
     <!-- Plugin js for this page -->
     <!-- End plugin js for this page -->
