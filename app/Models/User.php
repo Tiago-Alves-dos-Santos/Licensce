@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use App\Classes\Configuracao;
 use Exception;
+use App\Classes\Configuracao;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -62,7 +63,14 @@ class User extends Authenticatable
             if(Hash::check($senha, $user->password)){
                 //verficar lembrar-me
                 if($lembrar_me){
-
+                    $tempo = strtotime("+1 year");
+                    Cookie::queue(Cookie::make('login', $login, $tempo));
+                    Cookie::queue(Cookie::make('senha', $senha, $tempo));
+                    Cookie::queue(Cookie::make('lembrar_me', $lembrar_me, $tempo));
+                }else if(Cookie::has('login')){//apagar cookie, caso exista
+                    Cookie::queue(Cookie::forget('login'));
+                    Cookie::queue(Cookie::forget('senha'));
+                    Cookie::queue(Cookie::forget('lembrar_me'));
                 }
                 $retorno = [
                     'user' => $user,

@@ -14,7 +14,7 @@ class Login extends Controller
             'senha' => 'required',
         ]);
 
-        $login = User::login($request->login, $request->senha);
+        $login = User::login($request->login, $request->senha, (bool)$request->lembrar_me);
         if($login->sucesso){
             switch ($login->user->tipo) {
                 case 'dev_admin':
@@ -22,7 +22,7 @@ class Login extends Controller
                     break;
                 
                 default:
-                    throw new \Exception('Tipo de usuário nãi indentificado: '. $login->user->tipo);
+                    throw new \Exception('Tipo de usuário não indentificado: '. $login->user->tipo);
                     break;
             }
         }else{
