@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SessionDb;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class Login extends Controller
 {
@@ -39,6 +41,7 @@ class Login extends Controller
     }
     public function logout(Request $request)
     {
+        SessionDb::where('user_id', Auth::user()->id)->forceDelete();
         session()->flush();
         return redirect()->route('login');
     }
