@@ -170,14 +170,14 @@
               </div>
             </a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item preview-item">
+            <a href="#" class="dropdown-item preview-item" data-toggle="modal" data-target="#modalLogout">
               <div class="preview-thumbnail">
                 <div class="preview-icon bg-dark rounded-circle">
                   <i class="mdi mdi-logout text-danger"></i>
                 </div>
               </div>
               <div class="preview-item-content">
-                <p class="preview-subject mb-1">Log out</p>
+                <p class="preview-subject mb-1">Sair</p>
               </div>
             </a>
             <div class="dropdown-divider"></div>
@@ -190,3 +190,19 @@
       </button>
     </div>
   </nav>
+  <x-modal id="modalLogout" titulo="Encerrar sessão">
+    <h3>Relmente deseja prosseguir?</h3>
+    <form action="{{route('control.login.logout')}}" method="POST">
+      @csrf
+        <div class="form-row">
+          <div class="col-md-12 mt-2 d-flex justify-content-end">
+            <button type="submit" class="btn btn-outline-danger">
+              Prosseguir
+            </button>
+            <button type="button" class="btn btn-info ml-2" data-dismiss="modal">
+              Cancelar
+            </button>
+          </div>
+        </div>
+    </form>
+  </x-modal>

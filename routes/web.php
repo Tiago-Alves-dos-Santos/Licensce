@@ -17,8 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('login');
-});
+})->name('login');
 Route::post('/login', [Login::class, 'login'])->name('control.login.login');
-Route::get('/logout/confirmado', [Login::class, 'logout'])->name('control.login.logout');
+Route::post('/logout/confirmado', [Login::class, 'logout'])->name('control.login.logout');
 
 Route::get('/home-devAdmin', [Admin::class, 'index'])->middleware('dev_admin')->name('view.devAdmin.home');

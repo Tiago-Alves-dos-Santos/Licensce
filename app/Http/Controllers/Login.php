@@ -39,6 +39,7 @@ class Login extends Controller
     }
     public function logout(Request $request)
     {
-        # code...
+        session()->flush();
+        return redirect()->route('login');
     }
 }
