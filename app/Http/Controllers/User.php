@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Classes\Configuracao;
+use App\Models\User as UserDb;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Controller
 {
@@ -13,8 +16,10 @@ class User extends Controller
             'titulo' => 'Usuários',
             'breadcumb' => ['Usuários','Tabela']
         ];
+        $users = UserDb::get();
         return view('users.index',[
-            'page_data' => (object) $page_data
+            'page_data' => (object) $page_data,
+            'users' => $users
         ]);
     }
 
@@ -28,6 +33,40 @@ class User extends Controller
             'confirmar_senha' => 'required|min:5',
             'tipo' => 'required'
         ]);
+        $email = $request->email;
+        $login = $request->login;
+        //verficar login
+        if(UserDb::where('login',$login)->exists()){
+            session([
+                'alert' => [
+                    'titulo' => 'Atenção!',
+                    'data' => "Login: $login, já existente na base de dados!",
+                    'tipo' => Configuracao::tipoAlerta('warning')
+                ]
+            ]);
+            return redirect()->back();
+        }
+        //verficar email
+        if(UserDb::where('email',$email)->exists()){
+            session([
+                'alert' => [
+                    'titulo' => 'Atenção!',
+                    'data' => "Email: $email, já existente na base de dados!",
+                    'tipo' => Configuracao::tipoAlerta('warning')
+                ]
+            ]);
+            return redirect()->back();
+        }
+        $user = UserDb::create([
+            'name' => mb_strtoupper($request->nome),
+            'email' => $email,
+            'login' => $login,
+            'tipo' => $request->tipo,
+            'ativo' => 'Y',
+            'password' => Hash::make($request->senha)
+        ]);
+        //cadastrar foto
 
+        return redirect()->back();
     }
 }

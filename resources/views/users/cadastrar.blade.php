@@ -61,10 +61,30 @@
                 <div class="col-md-12">
                     <label for="">Tipo</label>
                     <select name="tipo" id="" class="form-control @error('tipo') is-invalid @enderror">
-                        <option value="">Dev Admin</option>
-                        <option value="">Dev Empregado</option>
-                        <option value="">User Admin</option>
-                        <option value="">User Empregadp</option>
+                        <option value="">Selecione</option>
+                        @switch(Auth::user()->tipo)
+                            @case('dev_admin')
+                                <option value="dev_admin">Dev Admin</option>
+                                <option value="dev_empregado">Dev Empregado</option>
+                                <option value="user_admin">Ususário Admin</option>
+                                <option value="user_empregado">Ususário Empregado</option>
+                                @break
+                            @case('dev_empregado')
+                                <option value="dev_empregado">Dev Empregado</option>
+                                <option value="user_admin">Ususário Admin</option>
+                                <option value="user_empregado">Ususário Empregado</option>
+                                @break
+                            @case('user_admin')
+                                <option value="user_admin">Ususário Admin</option>
+                                <option value="user_empregado">Ususário Empregado</option>
+                                @break
+                            @case('user_empregado')
+                                <option value="user_empregado">Ususário Empregado</option>
+                                @break
+                        
+                            @default
+                                
+                        @endswitch
                     </select>
                     @error('tipo')
                     <div class="invalid-feedback">
