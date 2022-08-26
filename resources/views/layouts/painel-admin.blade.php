@@ -28,7 +28,9 @@
                   </ol>
                 </nav>
               </div>
-              @yield('conteudo')
+              <div class="container-fluid">
+                @yield('conteudo')
+              </div>
           </div>
           <!-- content-wrapper ends -->
           <!-- partial:../../partials/_footer.html -->

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\devAdmin\Admin;
 use App\Http\Controllers\Login;
+use App\Http\Controllers\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,5 +21,7 @@ Route::get('/', function () {
 })->name('login');
 Route::post('/login', [Login::class, 'login'])->name('control.login.login');
 Route::post('/logout/confirmado', [Login::class, 'logout'])->name('control.login.logout');
+
+Route::get('/user', [User::class, 'index'])->middleware('dev_admin')->name('view.user.index');
 
 Route::get('/home-devAdmin', [Admin::class, 'index'])->middleware('dev_admin')->name('view.devAdmin.home');
