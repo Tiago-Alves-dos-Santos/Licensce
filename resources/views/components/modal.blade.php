@@ -1,4 +1,5 @@
 <!-- The whole future lies in uncertainty: live immediately. - Seneca -->
+{{-- data-toggle="modal" data-target="#exampleModal" --}}
 <div class="modal fade" id="{{$id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">

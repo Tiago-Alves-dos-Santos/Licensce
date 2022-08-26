@@ -11,7 +11,7 @@
         </button>
     </div>
     <div class="col-md-1 align-self-end">
-        <button class="btn btn-success btn-block">
+        <button class="btn btn-success btn-block" data-toggle="modal" data-target="#cadastrarUser">
             Novo
         </button>
     </div>
@@ -65,4 +65,8 @@
         </div>
     </div>
 </div>
+
+<x-modal titulo='Novo usuário' id="cadastrarUser">
+    @include('users.cadastrar')
+</x-modal>
 @endsection

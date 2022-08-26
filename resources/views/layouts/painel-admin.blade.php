@@ -48,5 +48,6 @@
     </div>
     <!-- container-scroller -->
     @include('includes.footer')
+    @stack('scripts')
   </body>
 </html>

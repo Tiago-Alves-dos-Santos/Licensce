@@ -19,9 +19,30 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('login');
 })->name('login');
+
+
 Route::post('/login', [Login::class, 'login'])->name('control.login.login');
 Route::post('/logout/confirmado', [Login::class, 'logout'])->name('control.login.logout');
 
-Route::get('/user', [User::class, 'index'])->middleware('dev_admin')->name('view.user.index');
 
-Route::get('/home-devAdmin', [Admin::class, 'index'])->middleware('dev_admin')->name('view.devAdmin.home');
+Route::group( [ 'prefix' => 'devAdmin/' ], function()
+{
+    Route::group( ['middleware' => 'dev_admin'], function()
+    {
+        Route::get('/', [Admin::class, 'index'])->name('view.devAdmin.home');
+    });
+});
+
+
+Route::group( [ 'prefix' => 'user/' ], function()
+{
+    //empresa, area permita apenas para desenvolvedores, 
+    Route::group( ['middleware' => ['dev_admin','dev_empregado']], function()
+    {
+        Route::get('/', [User::class, 'index'])->name('view.user.index');
+        Route::post('/create', [User::class, 'cadastrar'])->name('control.user.cadastrar');
+    });
+});
+
+
+

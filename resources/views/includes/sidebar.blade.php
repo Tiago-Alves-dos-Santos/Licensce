@@ -57,7 +57,7 @@
         <span class="nav-link">Navegação</span>
       </li>
       <li class="nav-item menu-items @if($page_data->menu == 'inicio') active @endif">
-        <a class="nav-link" href="../../index.html">
+        <a class="nav-link" href="{{route('view.devAdmin.home')}}">
           <span class="menu-icon">
             <i class="mdi mdi-speedometer"></i>
           </span>
