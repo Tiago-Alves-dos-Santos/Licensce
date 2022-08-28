@@ -41,6 +41,7 @@ Route::group( [ 'prefix' => 'user/' ], function()
     {
         Route::get('/', [User::class, 'index'])->name('view.user.index');
         Route::post('/create', [User::class, 'cadastrar'])->name('control.user.cadastrar');
+        Route::post('/update/{id}', [User::class, 'editar'])->name('control.user.editar');
     });
 });
 

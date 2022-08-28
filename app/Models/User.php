@@ -7,7 +7,9 @@ use App\Classes\Configuracao;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -107,6 +109,24 @@ class User extends Authenticatable
                 ]
             ]);
             return (object) $retorno;
+        }
+    }
+
+    /*** Não static */
+
+    public function uploadLogo($file)
+    {
+        $image = Image::make($file->getRealPath());
+        $image->resize(90,90);
+        $image->save(Configuracao::setPathIntervetion('perfil')."{$this->id}.".$file->extension());
+        $this->logo = "{$this->id}.".$file->extension();
+        $this->save();
+    }
+
+    public function deleteLogo()
+    {
+        if(!empty($this->logo) && Storage::exists(Configuracao::getPath('perfil').'/'.$this->logo)){
+            Storage::delete(Configuracao::getPath('perfil').'/'.$this->logo);
         }
     }
 }
