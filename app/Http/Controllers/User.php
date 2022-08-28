@@ -138,8 +138,6 @@ class User extends Controller
             $user->uploadLogo($logo);
         }
         
-        //cadastrar foto
-        
         session([
             'alert' => [
                 'titulo' => 'Sucesso!',
@@ -148,6 +146,19 @@ class User extends Controller
             ]
         ]);
 
+        return redirect()->back();
+    }
+
+
+    public function toogleAtivacao(Request $request)
+    {
+        $user = UserDb::find($request->id);
+        if($request->value == 'desativar'){
+            $user->ativo = 'N';
+        }else{
+            $user->ativo = 'Y';
+        }
+        $user->save();
         return redirect()->back();
     }
 }

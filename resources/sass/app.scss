@@ -16,3 +16,16 @@
 .jconfirm .jconfirm-box div.jconfirm-title-c .jconfirm-title {
     color: black;
 }
+
+/***************LOAD PAGE*******************/
+div.load-page{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #080600;
+    z-index:91000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

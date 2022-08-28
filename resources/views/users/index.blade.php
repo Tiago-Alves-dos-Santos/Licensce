@@ -19,7 +19,7 @@
 <div class="row">
     <div class="col-md-12 stretch-card">
         <div class="card p-1">
-            <div class="table-responsive" style="min-height: 300px">
+            <div class="table-responsive" style="min-height: 300px" id="tabela-users">
                 <table class="table table-striped">
                     <thead>
                         <th>#</th>
@@ -85,7 +85,23 @@
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuIconButton1">
                                       <h6 class="dropdown-header">Configurações</h6>
                                       <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editarUser-{{$value->id}}">Editar</a>
-                                      <a class="dropdown-item" href="#">Desativar</a>
+                                        @switch($value->ativo)
+                                            @case('Y')
+                                            <a class="dropdown-item toogle-ativacao" href="{{route('control.user.toogleAtivacao', [
+                                                'id' => $value->id,
+                                                'value' => 'desativar'
+                                            ])}}" >Desativar</a>
+                                                @break
+                                            @case('N')
+                                            <a class="dropdown-item toogle-ativacao" href="{{route('control.user.toogleAtivacao', [
+                                                'id' => $value->id,
+                                                'value' => 'ativar'
+                                            ])}}">Ativar</a>
+                                                @break
+                                        
+                                            @default
+                                                
+                                        @endswitch
                                       <div class="dropdown-divider"></div>
                                       <a class="dropdown-item" href="#">Excluir</a>
                                     </div>
@@ -111,4 +127,5 @@
 <x-modal titulo='Novo usuário' id="cadastrarUser">
     @include('users.cadastrar')
 </x-modal>
+
 @endsection
