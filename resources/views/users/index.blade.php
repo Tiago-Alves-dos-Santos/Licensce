@@ -35,17 +35,47 @@
                         @forelse ($users as $value)
                         <tr>
                             <td>
-                                <img src="https://source.unsplash.com/random/50x50" class="img-fluid"/>
+                                @if (!empty($value->logo))
+                                <img src="{{Configuracao::getPath('perfil').'/'.$value->logo}}" class="img-fluid"/>
+                                @else
+                                <img src="{{asset('img/user-default.png')}}" class="img-fluid"/>
+                                @endif
                             </td>
                             <td>{{$value->id}}</td>
                             <td>{{$value->name}}</td>
                             <td>{{$value->login}}</td>
                             <td>{{$value->email}}</td>
                             <td>
-                                <span class="badge badge-primary">{{$value->tipo}}</span>
+                                @switch($value->tipo)
+                                    @case('dev_admin')
+                                        <span class="badge badge-info">ADMIN (DEV)</span>
+                                        @break
+                                    @case('dev_empregado')
+                                        <span class="badge badge-success">EMPREGADO (DEV)</span>
+                                        @break
+                                    @case('user_admin')
+                                        <span class="badge badge-warning">ADMIN (USER)</span>
+                                        @break
+                                    @case('user_empregado')
+                                        <span class="badge badge-primary">EMPREGADO (USER)</span>
+                                        @break
+                                
+                                    @default
+                                        
+                                @endswitch
                             </td>
                             <td>
-                                <span class="badge badge-success">{{$value->ativo}}</span>
+                                @switch($value->ativo)
+                                    @case('Y')
+                                    <span class="badge badge-success">Ativo</span>
+                                        @break
+                                    @case('N')
+                                    <span class="badge badge-danger">Desativo</span>
+                                        @break
+                                
+                                    @default
+                                        
+                                @endswitch
                             </td>
                             <td>
                                 <div class="dropdown">
@@ -54,7 +84,7 @@
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuIconButton1">
                                       <h6 class="dropdown-header">Configurações</h6>
-                                      <a class="dropdown-item" href="#">Editar</a>
+                                      <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editarUser-{{$value->id}}">Editar</a>
                                       <a class="dropdown-item" href="#">Desativar</a>
                                       <div class="dropdown-divider"></div>
                                       <a class="dropdown-item" href="#">Excluir</a>
@@ -62,6 +92,9 @@
                                 </div>
                             </td>
                         </tr>
+                        <x-modal titulo='Editar usuário' id="editarUser-{{$value->id}}">
+                            @include('users.editar', ['user' => $value])
+                        </x-modal>
                         @empty
                             <tr>
                                 <td colspan="8">N/A</td>

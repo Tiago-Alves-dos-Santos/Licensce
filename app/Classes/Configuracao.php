@@ -3,21 +3,8 @@ namespace App\Classes;
 
 
 define('PRODUCAO', false);
-
-
-//VALORES ABAIXO USADO PARA CAMINHO DA BIBLIOTECA ITENVERTION, DIFERENTE DE USAR STORAGE AS
-//LOCAL DE SALVAR O UPLOAD, ´SO VALE PARA REGISTROS A CADASTRAR, CADASTRADOS NÃO SOFREM MUDANÇAS
-define('PATH_PERFIL_CLIENTE', public_path()."/storage/cliente/");
-
 //tempo de desaparecimento do toast, false = permanente
 define('TIME_TOAST',5000);
-if(PRODUCAO){
-    /******pasta - arquivos storage - StoraGe(SG)******/
-    define('PATH_PERFIL_CLIENTE_SG', "cliente/");
-}else{
-    /******pasta - arquivos storage - StoraGe(SG)******/
-    define('PATH_PERFIL_CLIENTE_SG', "public/cliente/");
-}
 class Configuracao
 {
     public static $LIMITE_PAGINA = 10;
@@ -32,19 +19,38 @@ class Configuracao
         return PRODUCAO;
     }
 
+
+    public static function setPathIntervetion($path)
+    {
+        $cliente_perfil = public_path()."/storage/user-perfil/";
+        switch($path){
+            case 'perfil':
+                return $cliente_perfil;
+            break;
+            default:
+
+            break;
+        }
+    }
     /**
      * [Description for getPathCliente]
      *
      * @param mixed $path
      *
      * @return [type]
-     *
+     * exemplo de uso
+     * <img src="{{Configuracao::getPath('perfil').'/'.$value->logo}}" class="img-fluid"/>
      */
-    public static function getPathCliente($path)
+    public static function getPath($path)
     {
+        if(PRODUCAO){
+            $cliente_perfil = asset('user-perfil');
+        }else{
+            $cliente_perfil = asset('storage/user-perfil');
+        }
         switch($path){
             case 'perfil':
-                return 'storage/cliente/';
+                return $cliente_perfil;
             break;
             default:
 

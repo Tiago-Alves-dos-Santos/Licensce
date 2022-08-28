@@ -3,6 +3,29 @@
         <form action="{{route('control.user.cadastrar')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-row">
+                <div class="col-md-12 d-flex justify-content-center">
+                    <img src="{{asset('img/user-default.png')}}" alt="" id="preview" class="img-fluid" style="width: 90px; height: 90px">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-12">
+                    <label for="">Logo</label>
+                    <input type="file" name="logo" class="file" id="arquivo" accept="image/*" style="visibility: hidden; position: absolute;">
+
+                    <div class="input-group my-3" id="btn-up">
+                        <input type="text" class="form-control" style="background-color: #2A3038; color: white;" disabled placeholder="Selecionar Arquivo" id="file-texto">
+                        <div class="input-group-append">
+                            <button type="button" class="browse btn bg-primary">Buscar</button>
+                        </div>
+                    </div>
+                    @error('logo')
+                    <div class="invalid-feedback">
+                      {{$message}}
+                    </div>
+                    @enderror
+                </div>
+            </div>
+            <div class="form-row">
                 <div class="col-md-12">
                     <label for="">Nome</label>
                     <input type="text" class="form-control @error('nome') is-invalid @enderror" name="nome">
@@ -102,4 +125,30 @@
             </div>
         </form>
     </div>
+    @push('scripts')
+        <script>
+            $("#btn-up").click(function() {
+                var file = $(this).parents().find("#arquivo");
+                file.trigger("click");
+            });
+
+            $('input#arquivo').change(function(e) {
+                var fileName = e.target.files[0].name;
+                //seleciona o input texto
+                $("#file-texto").val(fileName);
+
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    // seleciona a div com img com id preview e atribui a img
+                    document.getElementById("preview").src = e.target.result;
+                };
+                // read the image file as a data URL.
+                reader.readAsDataURL(this.files[0]);
+            });
+
+            
+
+
+        </script>
+    @endpush
 </div>

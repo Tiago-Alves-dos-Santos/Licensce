@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Classes\Configuracao;
 use App\Models\User as UserDb;
 use Illuminate\Support\Facades\Hash;
+use Intervention\Image\Facades\Image;
 
 class User extends Controller
 {
@@ -33,6 +34,7 @@ class User extends Controller
             'confirmar_senha' => 'required|min:5',
             'tipo' => 'required'
         ]);
+        $logo = $request->file('logo');
         $email = $request->email;
         $login = $request->login;
         //verficar login
@@ -66,6 +68,20 @@ class User extends Controller
             'password' => Hash::make($request->senha)
         ]);
         //cadastrar foto
+        if(!empty($logo)){
+            $image = Image::make($logo->getRealPath());
+            $image->resize(90,90);
+            $image->save(Configuracao::setPathIntervetion('perfil')."{$user->id}.".$logo->extension());
+            $user->logo = "{$user->id}.".$logo->extension();
+            $user->save();
+        }
+        session([
+            'alert' => [
+                'titulo' => 'Sucesso!',
+                'data' => "Usuário: {$user->name} cadastrado com sucesso!",
+                'tipo' => Configuracao::tipoAlerta('info')
+            ]
+        ]);
 
         return redirect()->back();
     }
