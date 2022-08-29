@@ -7,7 +7,7 @@
             @csrf
             <div class="form-row">
                 <div class="col-md-10">
-                    <input type="search" class="form-control" placeholder="Buscar: Codigo, nome, login" name="busca">
+                    <input type="search" class="form-control" placeholder="Buscar: Codigo, nome, login" name="busca" value="{{$busca_value ?? ''}}">
                 </div>
                 <div class="col-md-1 align-self-end">
                     <button type="submit" class="btn btn-info btn-block">
@@ -15,7 +15,7 @@
                     </button>
                 </div>
                 <div class="col-md-1 align-self-end">
-                    <button class="btn btn-success btn-block" data-toggle="modal" data-target="#cadastrarUser">
+                    <button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#cadastrarUser">
                         Novo
                     </button>
                 </div>
