@@ -17,13 +17,32 @@ class User extends Controller
             'titulo' => 'Usuários',
             'breadcumb' => ['Usuários','Tabela']
         ];
-        $users = UserDb::get();
+        $users = UserDb::orderBy('id','desc')->paginate(Configuracao::$LIMITE_PAGINA);
         return view('users.index',[
             'page_data' => (object) $page_data,
             'users' => $users
         ]);
     }
-
+    public function buscar(Request $request)
+    {
+        $page_data = [
+            'menu' => 'users',
+            'titulo' => 'Usuários',
+            'breadcumb' => ['Usuários','Tabela']
+        ];
+        $busca = $request->busca;
+        $filtro = $request->except(['_token']);
+        $users = UserDb::where('id', $busca)
+        ->orWhere('login','like',"%$busca%")
+        ->orWhere('name','like',"%$busca%")
+        ->orderBy('id','desc')
+        ->paginate(Configuracao::$LIMITE_PAGINA);
+        return view('users.index',[
+            'page_data' => (object) $page_data,
+            'users' => $users,
+            'busca' => $filtro
+        ]);
+    }
     public function cadastrar(Request $request)
     {
         $validated = $request->validate([

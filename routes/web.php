@@ -40,6 +40,7 @@ Route::group( [ 'prefix' => 'user/' ], function()
     Route::group( ['middleware' => ['dev_admin','dev_empregado']], function()
     {
         Route::get('/', [User::class, 'index'])->name('view.user.index');
+        Route::match(['get', 'post'], '/buscar',[User::class, 'buscar'])->name('control.user.buscar');
         Route::post('/create', [User::class, 'cadastrar'])->name('control.user.cadastrar');
         Route::post('/update/{id}', [User::class, 'editar'])->name('control.user.editar');
         Route::get('/deletar/{id}', [User::class, 'deletar'])->name('control.user.deletar');//ajax
