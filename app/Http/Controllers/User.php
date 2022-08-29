@@ -121,7 +121,8 @@ class User extends Controller
         return view('users.index',[
             'page_data' => (object) $page_data,
             'users' => $users,
-            'busca' => $filtro
+            'busca' => $filtro,
+            'busca_value' => $busca
         ]);
     }
     public function cadastrar(Request $request)
