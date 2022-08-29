@@ -15,7 +15,7 @@
                     </button>
                 </div>
                 <div class="col-md-1 align-self-end">
-                    <button class="btn btn-success btn-block" data-toggle="modal" data-target="#cadastrarUser">
+                    <button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#cadastrarUser">
                         Novo
                     </button>
                 </div>

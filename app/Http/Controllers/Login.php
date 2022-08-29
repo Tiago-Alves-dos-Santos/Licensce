@@ -22,9 +22,9 @@ class Login extends Controller
                 case 'dev_admin':
                     return redirect()->route('view.devAdmin.home');
                     break;
-                // case 'dev_empregado':
-                //     return redirect()->route('view.devAdmin.home');
-                //     break;
+                case 'dev_empregado':
+                    return redirect()->route('view.devAdmin.home');
+                    break;
                 
                 default:
                     throw new \Exception('Tipo de usuário não indentificado: '. $login->user->tipo);

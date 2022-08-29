@@ -30,7 +30,7 @@ class DevAdmin
                     ]
                 ]);
             }
-            return redirect()->back();    
+            return redirect()->back();       
         }else{
             session([
                 'alert' => [
@@ -39,7 +39,7 @@ class DevAdmin
                     'tipo' => Configuracao::tipoAlerta('warning')
                 ]
             ]);
-            return redirect()->back();  
+            return redirect()->route('login');   
         }
         
     }

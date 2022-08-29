@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Classes\Configuracao;
 use App\Models\User as UserDb;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
@@ -17,7 +18,37 @@ class User extends Controller
             'titulo' => 'Usuários',
             'breadcumb' => ['Usuários','Tabela']
         ];
-        $users = UserDb::orderBy('id','desc')->paginate(Configuracao::$LIMITE_PAGINA);
+        $users = null;
+        $user = Auth::user();
+        switch ($user->tipo) {
+            case 'dev_admin':
+                $users = UserDb::where('id', '!=', $user->id)
+                ->orderBy('id','desc')
+                ->paginate(Configuracao::$LIMITE_PAGINA);
+                break;
+            case 'dev_empregado':
+                $users = UserDb::where('id', '!=', $user->id)
+                ->whereNotIn('tipo', ['dev_admin'])
+                ->orderBy('id','desc')
+                ->paginate(Configuracao::$LIMITE_PAGINA);
+                break;
+            case 'user_admin':
+                $users = UserDb::where('id', '!=', $user->id)
+                ->whereNotIn('tipo', ['dev_admin','dev_empregado'])
+                ->orderBy('id','desc')
+                ->paginate(Configuracao::$LIMITE_PAGINA);
+                break;
+            case 'user_empregado':
+                $users = UserDb::where('id', '!=', $user->id)
+                ->where('tipo', 'user_empregado')
+                ->orderBy('id','desc')
+                ->paginate(Configuracao::$LIMITE_PAGINA);
+                break;
+            
+            default:
+                # code...
+                break;
+        }
         return view('users.index',[
             'page_data' => (object) $page_data,
             'users' => $users
@@ -32,11 +63,61 @@ class User extends Controller
         ];
         $busca = $request->busca;
         $filtro = $request->except(['_token']);
-        $users = UserDb::where('id', $busca)
-        ->orWhere('login','like',"%$busca%")
-        ->orWhere('name','like',"%$busca%")
-        ->orderBy('id','desc')
-        ->paginate(Configuracao::$LIMITE_PAGINA);
+        $users = null;
+        $user = Auth::user();
+        switch ($user->tipo) {
+            case 'dev_admin':
+                $users = UserDb::where('id', '!=', $user->id)
+                ->where(function($q) use ($busca)
+                {
+                   $q->where('id', $busca);
+                   $q->orWhere('login','like',"%$busca%");
+                   $q->orWhere('name','like',"%$busca%");  
+                })
+                ->orderBy('id','desc')
+                ->paginate(Configuracao::$LIMITE_PAGINA);
+                break;
+            case 'dev_empregado':
+                $users = UserDb::where('id', '!=', $user->id)
+                ->whereNotIn('tipo', ['dev_admin'])
+                ->where(function($q) use ($busca)
+                {
+                   $q->where('id', $busca);
+                   $q->orWhere('login','like',"%$busca%");
+                   $q->orWhere('name','like',"%$busca%");  
+                })
+                ->orderBy('id','desc')
+                ->paginate(Configuracao::$LIMITE_PAGINA);
+                break;
+            case 'user_admin':
+                $users = UserDb::where('id', '!=', $user->id)
+                ->whereNotIn('tipo', ['dev_admin','dev_empregado'])
+                ->where(function($q) use ($busca)
+                {
+                   $q->where('id', $busca);
+                   $q->orWhere('login','like',"%$busca%");
+                   $q->orWhere('name','like',"%$busca%");  
+                })
+                ->orderBy('id','desc')
+                ->paginate(Configuracao::$LIMITE_PAGINA);
+                break;
+            case 'user_empregado':
+                $users = UserDb::where('id', '!=', $user->id)
+                ->whereNotIn('tipo', ['dev_admin','dev_empregado','user_admin'])
+                ->where(function($q) use ($busca)
+                {
+                   $q->where('id', $busca);
+                   $q->orWhere('login','like',"%$busca%");
+                   $q->orWhere('name','like',"%$busca%");  
+                })
+                ->orderBy('id','desc')
+                ->paginate(Configuracao::$LIMITE_PAGINA);
+                break;
+            
+            default:
+                # code...
+                break;
+        }
         return view('users.index',[
             'page_data' => (object) $page_data,
             'users' => $users,

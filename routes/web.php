@@ -27,7 +27,7 @@ Route::post('/logout/confirmado', [Login::class, 'logout'])->name('control.login
 
 Route::group( [ 'prefix' => 'devAdmin/' ], function()
 {
-    Route::group( ['middleware' => 'dev_admin'], function()
+    Route::group( ['middleware' => 'dev_empregado'], function()
     {
         Route::get('/', [Admin::class, 'index'])->name('view.devAdmin.home');
     });
@@ -37,7 +37,7 @@ Route::group( [ 'prefix' => 'devAdmin/' ], function()
 Route::group( [ 'prefix' => 'user/' ], function()
 {
     //empresa, area permita apenas para desenvolvedores, 
-    Route::group( ['middleware' => ['dev_admin','dev_empregado']], function()
+    Route::group( ['middleware' => 'dev_empregado'], function()
     {
         Route::get('/', [User::class, 'index'])->name('view.user.index');
         Route::match(['get', 'post'], '/buscar',[User::class, 'buscar'])->name('control.user.buscar');
