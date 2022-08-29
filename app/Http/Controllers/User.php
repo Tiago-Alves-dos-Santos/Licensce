@@ -15,6 +15,7 @@ class User extends Controller
     {
         $page_data = [
             'menu' => 'users',
+            'sub_menu' => null,
             'titulo' => 'Usuários',
             'breadcumb' => ['Usuários','Tabela']
         ];
@@ -58,6 +59,7 @@ class User extends Controller
     {
         $page_data = [
             'menu' => 'users',
+            'sub_menu' => null,
             'titulo' => 'Usuários',
             'breadcumb' => ['Usuários','Tabela']
         ];

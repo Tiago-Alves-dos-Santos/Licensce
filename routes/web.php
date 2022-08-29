@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\devAdmin\Admin;
+use App\Http\Controllers\EmpresaControl;
 use App\Http\Controllers\Login;
 use App\Http\Controllers\User;
 use Illuminate\Support\Facades\Route;
@@ -45,6 +46,15 @@ Route::group( [ 'prefix' => 'user/' ], function()
         Route::post('/update/{id}', [User::class, 'editar'])->name('control.user.editar');
         Route::get('/deletar/{id}', [User::class, 'deletar'])->name('control.user.deletar');//ajax
         Route::get('/toogleAtivacao/{id}/{value}', [User::class, 'toogleAtivacao'])->name('control.user.toogleAtivacao');
+    });
+});
+
+Route::group( [ 'prefix' => 'empresa/' ], function()
+{
+    //empresa, area permita apenas para desenvolvedores, 
+    Route::group( ['middleware' => 'dev_empregado'], function()
+    {
+        Route::get('/', [EmpresaControl::class, 'index'])->name('view.empresa.index');
     });
 });
 

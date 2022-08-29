@@ -90,17 +90,17 @@
           </ul>
         </div>
       </li> --}}
-      <li class="nav-item menu-items">
+      <li class="nav-item menu-items  @if($page_data->menu == 'inicio') active @endif">
         <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
           <span class="menu-icon">
             <i class="mdi mdi-laptop"></i>
           </span>
-          <span class="menu-title">Basic UI Elements</span>
+          <span class="menu-title">Empresa</span>
           <i class="menu-arrow"></i>
         </a>
         <div class="collapse" id="ui-basic">
           <ul class="nav flex-column sub-menu">
-            <li class="nav-item"> <a class="nav-link" href="../../pages/ui-features/buttons.html">Buttons</a></li>
+            <li class="nav-item"> <a class="nav-link @if($page_data->sub_menu == 'empresa_tabela') active @endif" href="{{route('view.empresa.index')}}">Tabela</a></li>
             <li class="nav-item"> <a class="nav-link" href="../../pages/ui-features/dropdowns.html">Dropdowns</a></li>
             <li class="nav-item"> <a class="nav-link" href="../../pages/ui-features/typography.html">Typography</a></li>
           </ul>
