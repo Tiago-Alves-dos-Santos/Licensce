@@ -66,6 +66,18 @@ class User extends Authenticatable
         ];
         if(User::where('login', $login)->exists()){
             $user = User::where('login', $login)->first();
+            if($user->ativo == 'N'){
+                session([
+                    'login' => false,
+                    'user' => $user,
+                    'alert' => [
+                        'titulo' => 'Acesso bloqueado',
+                        'data' => 'O seu usuário esta bloqueado de acessar o sistema!',
+                        'tipo' => Configuracao::tipoAlerta('error')
+                    ]
+                ]);
+                return (object) $retorno;
+            }
             if(Hash::check($senha, $user->password)){
                 //verficar lembrar-me
                 if($lembrar_me){

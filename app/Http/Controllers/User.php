@@ -189,7 +189,7 @@ class User extends Controller
             'nome' => 'required|min:5',
             'login' => 'required|min:5',
             'email' => 'required|email',
-            'senha' => 'confirmed|nullable|min:5|required_with:confirmar_senha|same:confirmar_senha',
+            'senha' => 'nullable|min:5|required_with:confirmar_senha|same:confirmar_senha',
             'confirmar_senha' => 'nullable|required_with:senha|min:5',
             'tipo' => 'required'
         ]);
@@ -223,9 +223,7 @@ class User extends Controller
             'name' => mb_strtoupper($request->nome),
             'email' => $email,
             'login' => $login,
-            'tipo' => $request->tipo,
-            'ativo' => 'Y',
-            'password' => Hash::make($request->senha)
+            'tipo' => $request->tipo
         ]);
         $user = UserDb::find($user_alter_id);
         //caso tenha foto e logo do form não veio nula
@@ -236,6 +234,11 @@ class User extends Controller
             $user->uploadLogo($logo);
         }else if(empty($user->logo) && !empty($logo)){//cadastrar uma nova
             $user->uploadLogo($logo);
+        }
+
+        if(!empty($request->senha)){
+            $user->password = Hash::make($request->senha);
+            $user->save();
         }
         
         session([
