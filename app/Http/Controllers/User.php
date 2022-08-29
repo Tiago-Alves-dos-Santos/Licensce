@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Classes\Configuracao;
 use App\Models\User as UserDb;
 use Illuminate\Support\Facades\Hash;
-use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 
 class User extends Controller
@@ -159,6 +158,22 @@ class User extends Controller
             $user->ativo = 'Y';
         }
         $user->save();
+        return redirect()->back();
+    }
+
+    public function deletar(Request $request)
+    {
+
+        $user = UserDb::find($request->id);
+        $user->deleteLogo();
+        $user->delete();
+        session([
+            'alert' => [
+                'titulo' => 'Sucesso!',
+                'data' => "Usuário deletado com sucesso!",
+                'tipo' => Configuracao::tipoAlerta('success')
+            ]
+        ]);
         return redirect()->back();
     }
 }

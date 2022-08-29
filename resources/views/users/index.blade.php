@@ -36,7 +36,7 @@
                         <tr>
                             <td>
                                 @if (!empty($value->logo))
-                                <img src="{{Configuracao::getPath('perfil').'/'.$value->logo}}" class="img-fluid"/>
+                                <img src="{{asset(Configuracao::getPath('perfil',true).'/'.$value->logo)}}" class="img-fluid"/>
                                 @else
                                 <img src="{{asset('img/user-default.png')}}" class="img-fluid"/>
                                 @endif
@@ -103,7 +103,7 @@
                                                 
                                         @endswitch
                                       <div class="dropdown-divider"></div>
-                                      <a class="dropdown-item" href="#">Excluir</a>
+                                      <a class="dropdown-item delete-user" href="{{route('control.user.deletar', ['id' => $value->id])}}">Excluir</a>
                                     </div>
                                 </div>
                             </td>
@@ -127,5 +127,23 @@
 <x-modal titulo='Novo usuário' id="cadastrarUser">
     @include('users.cadastrar')
 </x-modal>
+@push('scripts')
+    <script>
+        
 
+        $(function(){
+            $('.delete-user').on('click', function(e){
+                e.preventDefault();
+                let url = $(this).attr('href');
+                function deleteUser(){
+                    window.location.href = url;
+                }
+                
+                showQuestionYesNo('Excluir usuário','Deseja prosseguir com a exclusão do usuário?', deleteUser)
+                
+
+            });
+        });
+    </script>
+@endpush
 @endsection

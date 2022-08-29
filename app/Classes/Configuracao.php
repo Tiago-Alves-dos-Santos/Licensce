@@ -39,14 +39,14 @@ class Configuracao
      *
      * @return [type]
      * exemplo de uso
-     * <img src="{{Configuracao::getPath('perfil').'/'.$value->logo}}" class="img-fluid"/>
+     *  <img src="{{asset(Configuracao::getPath('perfil',true).'/'.$value->logo)}}" class="img-fluid"/>
      */
-    public static function getPath($path)
+    public static function getPath($path, $front = false)
     {
-        if(PRODUCAO){
-            $cliente_perfil = asset('user-perfil');
+        if($front){
+            $cliente_perfil = 'storage/user-perfil';
         }else{
-            $cliente_perfil = asset('storage/user-perfil');
+            $cliente_perfil = 'public/user-perfil';
         }
         switch($path){
             case 'perfil':

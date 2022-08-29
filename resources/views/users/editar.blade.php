@@ -5,7 +5,7 @@
             <div class="form-row">
                 <div class="col-md-12 d-flex justify-content-center">
                     @if (!empty($user->logo))
-                    <img src="{{asset(Configuracao::getPath('perfil').'/'.$user->logo)}}" alt="" id="preview-editar-{{$user->id}}" class="img-fluid" style="width: 90px; height: 90px">
+                    <img src="{{asset(Configuracao::getPath('perfil',true).'/'.$user->logo)}}" alt="" id="preview-editar-{{$user->id}}" class="img-fluid" style="width: 90px; height: 90px">
                     @else
                     <img src="{{asset('img/user-default.png')}}" alt="" id="preview-editar-{{$user->id}}" class="img-fluid" style="width: 90px; height: 90px">
                     @endif
@@ -94,19 +94,19 @@
                                 <option value="dev_admin" @if($user->tipo == 'dev_admin') selected @endif>Dev Admin</option>
                                 <option value="dev_empregado" @if($user->tipo == 'dev_empregado') selected @endif>Dev Empregado</option>
                                 <option value="user_admin" @if($user->tipo == 'user_admin') selected @endif>Ususário Admin</option>
-                                <option value="user_empregado" @if($user->tipo == 'user_admin') selected @endif>Ususário Empregado</option>
+                                <option value="user_empregado" @if($user->tipo == 'user_empregado') selected @endif>Ususário Empregado</option>
                                 @break
                             @case('dev_empregado')
                                 <option value="dev_empregado" @if($user->tipo == 'dev_empregado') selected @endif>Dev Empregado</option>
                                 <option value="user_admin" @if($user->tipo == 'user_admin') selected @endif>Ususário Admin</option>
-                                <option value="user_empregado" @if($user->tipo == 'user_admin') selected @endif>Ususário Empregado</option>
+                                <option value="user_empregado" @if($user->tipo == 'user_empregado') selected @endif>Ususário Empregado</option>
                                 @break
                             @case('user_admin')
                                 <option value="user_admin" @if($user->tipo == 'user_admin') selected @endif>Ususário Admin</option>
-                                <option value="user_empregado" @if($user->tipo == 'user_admin') selected @endif>Ususário Empregado</option>
+                                <option value="user_empregado" @if($user->tipo == 'user_empregado') selected @endif>Ususário Empregado</option>
                                 @break
                             @case('user_empregado')
-                                <option value="user_empregado" @if($user->tipo == 'user_admin') selected @endif>Ususário Empregado</option>
+                                <option value="user_empregado" @if($user->tipo == 'user_empregado') selected @endif>Ususário Empregado</option>
                                 @break
                         
                             @default

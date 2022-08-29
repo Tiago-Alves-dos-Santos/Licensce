@@ -13,11 +13,12 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -127,6 +128,8 @@ class User extends Authenticatable
     {
         if(!empty($this->logo) && Storage::exists(Configuracao::getPath('perfil').'/'.$this->logo)){
             Storage::delete(Configuracao::getPath('perfil').'/'.$this->logo);
+            $this->logo = null;
+            $this->save();
         }
     }
 }
