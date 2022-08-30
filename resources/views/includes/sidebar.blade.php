@@ -91,7 +91,7 @@
         </div>
       </li> --}}
 
-      <li class="nav-item menu-items">
+      <li class="nav-item menu-items @if($page_data->menu == 'sistemas') active @endif">
         <a class="nav-link" data-toggle="collapse" href="#sistemas" aria-expanded="false" aria-controls="sistemas">
           <span class="menu-icon">
             <i class="mdi mdi-laptop"></i>
@@ -101,8 +101,8 @@
         </a>
         <div class="collapse" id="sistemas">
           <ul class="nav flex-column sub-menu">
-            <li class="nav-item"> <a class="nav-link" href="{{route('view.sistemas.index')}}">Tabela</a></li>
-            <li class="nav-item"> <a class="nav-link" href="{{route('view.sistemas.cadastro')}}">Novo</a></li>
+            <li class="nav-item"> <a class="nav-link @if($page_data->menu == 'sistemas_tabela') active @endif" href="{{route('view.sistemas.index')}}">Tabela</a></li>
+            <li class="nav-item"> <a class="nav-link @if($page_data->menu == 'sistemas_cadastro') active @endif" href="{{route('view.sistemas.cadastro')}}">Novo</a></li>
           </ul>
         </div>
       </li>
@@ -118,7 +118,7 @@
         </a>
         <div class="collapse" id="ui-basic">
           <ul class="nav flex-column sub-menu">
-            <li class="nav-item"> <a class="nav-link" href="{{route('view.empresa.index')}}">Tabela</a></li>
+            <li class="nav-item"> <a class="nav-link @if($page_data->menu == 'empresa_tabela') active @endif" href="{{route('view.empresa.index')}}">Tabela</a></li>
             <li class="nav-item"> <a class="nav-link" href="../../pages/ui-features/dropdowns.html">Dropdowns</a></li>
             <li class="nav-item"> <a class="nav-link" href="../../pages/ui-features/typography.html">Typography</a></li>
           </ul>

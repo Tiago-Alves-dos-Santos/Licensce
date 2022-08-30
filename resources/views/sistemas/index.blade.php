@@ -15,7 +15,7 @@
                     </button>
                 </div>
                 <div class="col-md-1 align-self-end">
-                    <a href="" class="btn btn-success btn-block">
+                    <a href="{{route('view.sistemas.cadastro')}}" class="btn btn-success btn-block">
                         Novo
                     </a>
                 </div>

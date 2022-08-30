@@ -10,7 +10,7 @@ class SistemasControl extends Controller
     {
         $page_data = [
             'menu' => 'sistemas',
-            'sub_menu' => 'xxxx',
+            'sub_menu' => 'sistemas_tabela',
             'titulo' => 'Sitemas',
             'breadcumb' => ['Sistemas','Tabela']
         ];
