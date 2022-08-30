@@ -3,6 +3,7 @@
 use App\Http\Controllers\devAdmin\Admin;
 use App\Http\Controllers\EmpresaControl;
 use App\Http\Controllers\Login;
+use App\Http\Controllers\SistemasControl;
 use App\Http\Controllers\User;
 use Illuminate\Support\Facades\Route;
 
@@ -48,13 +49,22 @@ Route::group( [ 'prefix' => 'user/' ], function()
         Route::get('/toogleAtivacao/{id}/{value}', [User::class, 'toogleAtivacao'])->name('control.user.toogleAtivacao');
     });
 });
-
+//todos tem acesso
 Route::group( [ 'prefix' => 'empresa/' ], function()
 {
-    //empresa, area permita apenas para desenvolvedores, 
     Route::group( ['middleware' => 'dev_empregado'], function()
     {
         Route::get('/', [EmpresaControl::class, 'index'])->name('view.empresa.index');
+    });
+});
+
+//só ate dev empregado
+Route::group( [ 'prefix' => 'sistemas/' ], function()
+{
+    Route::group( ['middleware' => 'dev_empregado'], function()
+    {
+        Route::get('/tabela', [SistemasControl::class, 'index'])->name('view.sistemas.index');
+        Route::get('/cadastro', [SistemasControl::class, 'viewCadastro'])->name('view.sistemas.cadastro');
     });
 });
 

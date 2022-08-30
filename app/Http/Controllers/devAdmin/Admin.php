@@ -12,6 +12,7 @@ class Admin extends Controller
     {
         $page_data = [
             'menu' => 'inicio',
+            'sub_menu' => null,
             'titulo' => 'Início',
             'breadcumb' => ['Areá Principal']
         ];

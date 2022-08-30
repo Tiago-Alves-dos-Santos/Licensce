@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('sistemas', function (Blueprint $table) {
             $table->id();
+            $table->string('nome',255);
+            $table->enum('tipo', ['pc', 'user']);
             $table->double('custo_principal_pc',11,2)->nullable();
             $table->double('custo_adicional_pc',11,2)->nullable();
             $table->double('custo_principal_user',11,2)->nullable();
