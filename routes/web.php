@@ -65,6 +65,7 @@ Route::group( [ 'prefix' => 'sistemas/' ], function()
     {
         Route::get('/tabela', [SistemasControl::class, 'index'])->name('view.sistemas.index');
         Route::get('/cadastro', [SistemasControl::class, 'viewCadastro'])->name('view.sistemas.cadastro');
+        Route::post('/cadastro/cadastrar', [SistemasControl::class, 'cadastro'])->name('control.sistemas.cadastro');
     });
 });
 

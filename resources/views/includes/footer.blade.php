@@ -10,6 +10,7 @@
     session()->forget('alert');
   @endphp
 @endif
+<script src="{{asset('js/footer.js')}}"></script>
 <!-- plugins:js -->
 {{-- <script src="{{ asset('vendors/js/vendor.bundle.base.js') }}"></script> --}}
 <!-- endinject -->

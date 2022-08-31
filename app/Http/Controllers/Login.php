@@ -42,6 +42,7 @@ class Login extends Controller
     public function logout(Request $request)
     {
         SessionDb::where('user_id', Auth::user()->id)->forceDelete();
+        Auth::logout();
         session()->flush();
         return redirect()->route('login');
     }

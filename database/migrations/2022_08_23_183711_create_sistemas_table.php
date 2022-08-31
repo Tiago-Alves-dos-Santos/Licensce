@@ -15,14 +15,17 @@ return new class extends Migration
     {
         Schema::create('sistemas', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('user_id')->unsigned();
             $table->string('nome',255);
-            $table->enum('tipo', ['pc', 'user']);
+            $table->string('tipo', 255);
             $table->double('custo_principal_pc',11,2)->nullable();
             $table->double('custo_adicional_pc',11,2)->nullable();
             $table->double('custo_principal_user',11,2)->nullable();
             $table->integer('minimo_user')->nullable();
             $table->timestamps();
             $table->softDeletes($column = 'deleted_at', $precision = 0);
+            //foreng keys
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

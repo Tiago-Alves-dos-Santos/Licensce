@@ -93,3 +93,7 @@ function showQuestionYesNo(title,question_data, callback,color='dark'){
         }
     });
 }
+
+function apenasLetras(element) {
+    element.value = element.value.replace(/[^a-zA-Z ]/g,'');
+}
